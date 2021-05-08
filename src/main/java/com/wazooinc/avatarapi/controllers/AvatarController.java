@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,10 +50,14 @@ public class AvatarController {
 
     // GET /api/avatars/:id
     @GetMapping("/avatars/{id}")
-    public Avatar getOne(@PathVariable("id") Long id) {
+    public ResponseEntity<?> getOne(@PathVariable("id") Long id) {
         Optional<Avatar> model = null;
         model = avatarRepository.findById(id);
-        return model.get();
+        if (model.isPresent()) {
+            return new ResponseEntity<Avatar>(model.get(), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>("{}", HttpStatus.NOT_FOUND);
     }
     
 }
