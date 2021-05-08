@@ -1,6 +1,7 @@
 package com.wazooinc.avatarapi.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.wazooinc.avatarapi.models.Avatar;
 import com.wazooinc.avatarapi.repositories.AvatarRepository;
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +45,14 @@ public class AvatarController {
         model.setType(newAvatar.getType());
         log.debug("{}", model);
         return avatarRepository.save(model);
+    }
+
+    // GET /api/avatars/:id
+    @GetMapping("/avatars/{id}")
+    public Avatar getOne(@PathVariable("id") Long id) {
+        Optional<Avatar> model = null;
+        model = avatarRepository.findById(id);
+        return model.get();
     }
     
 }

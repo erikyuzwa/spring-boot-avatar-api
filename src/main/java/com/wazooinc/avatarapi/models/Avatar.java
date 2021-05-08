@@ -1,6 +1,7 @@
 package com.wazooinc.avatarapi.models;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,6 +37,10 @@ public class Avatar implements Serializable {
     @Setter
     private int manaPoints;
 
+    @Getter
+    @Setter
+    private Instant dateCreated = Instant.now();
+
     public Avatar() {
         
     }
@@ -48,6 +53,7 @@ public class Avatar implements Serializable {
             ", type='" + type + '\'' +
             ", healthPoints=" + healthPoints +
             ", manaPoints=" + manaPoints +
+            ", dateCreated='" + dateCreated + '\'' +
             "}";
     }
     
