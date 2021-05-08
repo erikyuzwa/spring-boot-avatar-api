@@ -41,6 +41,10 @@ public class Avatar implements Serializable {
     @Setter
     private Instant dateCreated = Instant.now();
 
+    @Getter
+    @Setter
+    private Instant dateModified = Instant.now();
+
     public Avatar() {
         
     }
@@ -54,6 +58,7 @@ public class Avatar implements Serializable {
             ", healthPoints=" + healthPoints +
             ", manaPoints=" + manaPoints +
             ", dateCreated='" + dateCreated + '\'' +
+            ", dateModified='" + dateModified + '\'' +
             "}";
     }
     

@@ -1,5 +1,6 @@
 package com.wazooinc.avatarapi.controllers;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,9 +12,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -51,6 +54,7 @@ public class AvatarController {
     // GET /api/avatars/:id
     @GetMapping("/avatars/{id}")
     public ResponseEntity<?> getOne(@PathVariable("id") Long id) {
+        log.debug("REST request to get Avatar with id - {}", id);
         Optional<Avatar> model = null;
         model = avatarRepository.findById(id);
         if (model.isPresent()) {
@@ -58,6 +62,29 @@ public class AvatarController {
         }
 
         return new ResponseEntity<>("{}", HttpStatus.NOT_FOUND);
+    }
+
+    // PUT /api/avatars/:id
+    @PutMapping("/avatars/{id}")
+    public ResponseEntity<?> updateOne(@PathVariable("id") Long id, @RequestBody Avatar newAvatar){
+        log.debug("REST request to update Avatar with id - {}", id);
+        Optional<Avatar> model = null;
+        model = avatarRepository.findById(id);
+        if (model.isPresent()) {
+            model.get().setName(newAvatar.getName());
+            model.get().setType(newAvatar.getType());
+            model.get().setDateModified(Instant.now());
+
+            return new ResponseEntity<Avatar>(avatarRepository.save(model.get()), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>("{}", HttpStatus.NOT_FOUND);
+    }
+
+    // DELETE /api/avatars/:id
+    @DeleteMapping("/avatars/{id}")
+    public void delete(@PathVariable("id") Long id) {
+        avatarRepository.deleteById(id);
     }
     
 }
