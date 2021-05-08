@@ -1,6 +1,16 @@
 # spring-boot-avatar-api
 Repository for the Java Spring Boot Avatar API
 
+I go through it on YouTube here - https://youtu.be/Svcnz_CQgzo
+
+# developer setup
+
+- Spring Initializr: https://start.spring.io/​
+- Visual Studio Code: https://code.visualstudio.com/
+- Java Extension Pack: https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack
+- Lombok Annotations Support for VS Code: https://marketplace.visualstudio.com/items?itemName=GabrielBB.vscode-lombok
+- Spring Boot Extension Pack: https://marketplace.visualstudio.com/items?itemName=Pivotal.vscode-boot-dev-pack
+
 # developer notes
 
 Clone this repository and get started right away on your local
