@@ -1,5 +1,7 @@
 package com.wazooinc.avatarapi.models;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,7 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-public class Avatar {
+public class Avatar implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,6 +35,10 @@ public class Avatar {
     @Getter
     @Setter
     private int manaPoints;
+
+    public Avatar() {
+        
+    }
 
     @Override
     public String toString() {

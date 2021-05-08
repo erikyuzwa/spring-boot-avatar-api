@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +29,20 @@ public class AvatarController {
     @GetMapping("/avatars")
     @ResponseStatus(HttpStatus.OK)
     public List<Avatar> getAll() {
+        log.debug("REST request to get all Avatars");
         return avatarRepository.findAll();
+    }
+
+    // POST /api/avatars
+    @PostMapping("/avatars")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Avatar create(@RequestBody Avatar newAvatar) {
+        log.debug("REST request to create an Avatar");
+        Avatar model = new Avatar();
+        model.setName(newAvatar.getName());
+        model.setType(newAvatar.getType());
+        log.debug("{}", model);
+        return avatarRepository.save(model);
     }
     
 }
