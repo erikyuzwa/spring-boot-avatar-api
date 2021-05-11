@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 import com.wazooinc.avatarapi.models.Avatar;
+import com.wazooinc.avatarapi.models.User;
 import com.wazooinc.avatarapi.repositories.AvatarRepository;
+import com.wazooinc.avatarapi.repositories.UserRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,20 +33,25 @@ public class AvatarController {
     @Autowired
     private AvatarRepository avatarRepository;
 
-    // GET /api/avatars
-    @GetMapping("/avatars")
+    @Autowired
+    private UserRepository userRepository;
+
+    // GET /api/users/:userId/avatars
+    @GetMapping("/users/{userId}/avatars")
     @ResponseStatus(HttpStatus.OK)
-    public List<Avatar> getAll() {
-        log.debug("REST request to get all Avatars");
-        return avatarRepository.findAll();
+    public List<Avatar> getAll(@PathVariable("userId") Long userId) {
+        log.debug("REST request to get all Avatars with userId - {}", userId);
+        return avatarRepository.findByUserId(userId);
     }
 
-    // POST /api/avatars
-    @PostMapping("/avatars")
+    // POST /api/users/:userId/avatars
+    @PostMapping("/users/{userId}/avatars")
     @ResponseStatus(HttpStatus.CREATED)
-    public Avatar create(@RequestBody Avatar newAvatar) {
+    public Avatar create(@PathVariable("userId") Long userId, @RequestBody Avatar newAvatar) {
         log.debug("REST request to create an Avatar");
         Avatar model = new Avatar();
+        Optional<User> user = userRepository.findById(userId);
+        model.setUser(user.get());
         model.setName(newAvatar.getName());
         model.setClassType(newAvatar.getClassType());
         model.setRaceType(newAvatar.getRaceType());
@@ -52,12 +59,12 @@ public class AvatarController {
         return avatarRepository.save(model);
     }
 
-    // GET /api/avatars/:id
-    @GetMapping("/avatars/{id}")
-    public ResponseEntity<?> getOne(@PathVariable("id") Long id) {
+    // GET /api/users/:userId/avatars/:id
+    @GetMapping("/users/{userId}/avatars/{id}")
+    public ResponseEntity<?> getOne(@PathVariable("userId") Long userId, @PathVariable("id") Long id) {
         log.debug("REST request to get Avatar with id - {}", id);
         Optional<Avatar> model = null;
-        model = avatarRepository.findById(id);
+        model = avatarRepository.findByIdAndUserId(id, userId);
         if (model.isPresent()) {
             return new ResponseEntity<Avatar>(model.get(), HttpStatus.OK);
         }
@@ -65,12 +72,12 @@ public class AvatarController {
         return new ResponseEntity<>("{}", HttpStatus.NOT_FOUND);
     }
 
-    // PUT /api/avatars/:id
-    @PutMapping("/avatars/{id}")
-    public ResponseEntity<?> updateOne(@PathVariable("id") Long id, @RequestBody Avatar newAvatar){
+    // PUT /api/users/:userId/avatars/:id
+    @PutMapping("/users/{userId}/avatars/{id}")
+    public ResponseEntity<?> updateOne(@PathVariable("userId") Long userId, @PathVariable("id") Long id, @RequestBody Avatar newAvatar){
         log.debug("REST request to update Avatar with id - {}", id);
         Optional<Avatar> model = null;
-        model = avatarRepository.findById(id);
+        model = avatarRepository.findByIdAndUserId(id, userId);
         if (model.isPresent()) {
             model.get().setName(newAvatar.getName());
             model.get().setClassType(newAvatar.getClassType());
@@ -83,10 +90,11 @@ public class AvatarController {
         return new ResponseEntity<>("{}", HttpStatus.NOT_FOUND);
     }
 
-    // DELETE /api/avatars/:id
-    @DeleteMapping("/avatars/{id}")
-    public void delete(@PathVariable("id") Long id) {
-        avatarRepository.deleteById(id);
+    // DELETE /api/users/:userId/avatars/:id
+    @DeleteMapping("/users/{userId}/avatars/{id}")
+    public void delete(@PathVariable("userId") Long userId, @PathVariable("id") Long id) {
+        Optional<Avatar> model = avatarRepository.findByIdAndUserId(id, userId);
+        avatarRepository.delete(model.get());
     }
     
 }

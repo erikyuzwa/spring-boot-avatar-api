@@ -6,9 +6,12 @@ import java.time.Instant;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -54,6 +57,11 @@ public class Avatar implements Serializable {
     @Setter
     private Instant dateModified = Instant.now();
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    @Setter
+    private User user;
+
     public Avatar() {
         
     }
@@ -62,6 +70,7 @@ public class Avatar implements Serializable {
     public String toString() {
         return "Avatar{" +
             "id=" + id +
+            "userId=" + user.getId() +
             ", name='" + name + '\'' +
             ", classType='" + classType + '\'' +
             ", raceType='" + raceType + '\'' +

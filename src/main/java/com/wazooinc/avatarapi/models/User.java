@@ -2,11 +2,15 @@ package com.wazooinc.avatarapi.models;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -37,6 +41,9 @@ public class User implements Serializable {
     @Getter
     @Setter
     private Instant dateModified = Instant.now();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Avatar> avatar;
 
     @Override
     public String toString() {
