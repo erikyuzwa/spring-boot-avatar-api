@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.time.Instant;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,8 +13,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "avatars")
-public class Avatar implements Serializable {
+@Table(name = "users")
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,25 +24,11 @@ public class Avatar implements Serializable {
 
     @Getter
     @Setter
-    private String name;
+    private String userName;
 
     @Getter
     @Setter
-    @Enumerated(EnumType.STRING)
-    private ClassType classType;
-
-    @Getter
-    @Setter
-    @Enumerated(EnumType.STRING)
-    private RaceType raceType;
-
-    @Getter
-    @Setter
-    private int healthPoints;
-
-    @Getter
-    @Setter
-    private int manaPoints;
+    private String passwordHash;
 
     @Getter
     @Setter
@@ -54,19 +38,12 @@ public class Avatar implements Serializable {
     @Setter
     private Instant dateModified = Instant.now();
 
-    public Avatar() {
-        
-    }
-
     @Override
     public String toString() {
-        return "Avatar{" +
+        return "User{" +
             "id=" + id +
-            ", name='" + name + '\'' +
-            ", classType='" + classType + '\'' +
-            ", raceType='" + raceType + '\'' +
-            ", healthPoints=" + healthPoints +
-            ", manaPoints=" + manaPoints +
+            ", userName='" + userName + '\'' +
+            ", passwordHash='" + passwordHash + '\'' +
             ", dateCreated='" + dateCreated + '\'' +
             ", dateModified='" + dateModified + '\'' +
             "}";
