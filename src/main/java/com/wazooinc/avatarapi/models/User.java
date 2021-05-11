@@ -43,7 +43,9 @@ public class User implements Serializable {
     private Instant dateModified = Instant.now();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Avatar> avatar;
+    @Getter
+    @Setter
+    private Set<Avatar> avatars;
 
     @Override
     public String toString() {

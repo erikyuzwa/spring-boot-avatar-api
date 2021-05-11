@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -60,17 +62,13 @@ public class Avatar implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     @Setter
+    @JsonIgnore
     private User user;
-
-    public Avatar() {
-        
-    }
 
     @Override
     public String toString() {
         return "Avatar{" +
             "id=" + id +
-            "userId=" + user.getId() +
             ", name='" + name + '\'' +
             ", classType='" + classType + '\'' +
             ", raceType='" + raceType + '\'' +
