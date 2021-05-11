@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.Instant;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,10 +26,15 @@ public class Avatar implements Serializable {
     @Setter
     private String name;
 
-    // the "class" of our Avatar
     @Getter
     @Setter
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private ClassType classType;
+
+    @Getter
+    @Setter
+    @Enumerated(EnumType.STRING)
+    private RaceType raceType;
 
     @Getter
     @Setter
@@ -54,7 +61,8 @@ public class Avatar implements Serializable {
         return "Avatar{" +
             "id=" + id +
             ", name='" + name + '\'' +
-            ", type='" + type + '\'' +
+            ", classType='" + classType + '\'' +
+            ", raceType='" + raceType + '\'' +
             ", healthPoints=" + healthPoints +
             ", manaPoints=" + manaPoints +
             ", dateCreated='" + dateCreated + '\'' +

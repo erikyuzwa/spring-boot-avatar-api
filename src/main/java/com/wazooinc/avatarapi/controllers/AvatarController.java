@@ -46,7 +46,8 @@ public class AvatarController {
         log.debug("REST request to create an Avatar");
         Avatar model = new Avatar();
         model.setName(newAvatar.getName());
-        model.setType(newAvatar.getType());
+        model.setClassType(newAvatar.getClassType());
+        model.setRaceType(newAvatar.getRaceType());
         log.debug("{}", model);
         return avatarRepository.save(model);
     }
@@ -72,7 +73,8 @@ public class AvatarController {
         model = avatarRepository.findById(id);
         if (model.isPresent()) {
             model.get().setName(newAvatar.getName());
-            model.get().setType(newAvatar.getType());
+            model.get().setClassType(newAvatar.getClassType());
+            model.get().setRaceType(newAvatar.getRaceType());
             model.get().setDateModified(Instant.now());
 
             return new ResponseEntity<Avatar>(avatarRepository.save(model.get()), HttpStatus.OK);
