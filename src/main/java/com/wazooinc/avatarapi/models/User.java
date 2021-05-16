@@ -28,11 +28,11 @@ public class User implements Serializable {
 
     @Getter
     @Setter
-    private String userName;
+    private String username;
 
     @Getter
     @Setter
-    private String passwordHash;
+    private String password;
 
     @Getter
     @Setter
@@ -41,6 +41,10 @@ public class User implements Serializable {
     @Getter
     @Setter
     private Instant dateModified = Instant.now();
+
+    @Getter
+    @Setter
+    private String role;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @Getter
@@ -51,8 +55,9 @@ public class User implements Serializable {
     public String toString() {
         return "User{" +
             "id=" + id +
-            ", userName='" + userName + '\'' +
-            ", passwordHash='" + passwordHash + '\'' +
+            ", username='" + username + '\'' +
+            ", password='" + password + '\'' +
+            ", role='" + role + '\'' +
             ", dateCreated='" + dateCreated + '\'' +
             ", dateModified='" + dateModified + '\'' +
             "}";
