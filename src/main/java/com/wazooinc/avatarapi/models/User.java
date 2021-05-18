@@ -28,11 +28,11 @@ public class User implements Serializable {
 
     @Getter
     @Setter
-    private String userName;
+    private String username;
 
     @Getter
     @Setter
-    private String passwordHash;
+    private String password;
 
     @Getter
     @Setter
@@ -51,8 +51,8 @@ public class User implements Serializable {
     public String toString() {
         return "User{" +
             "id=" + id +
-            ", userName='" + userName + '\'' +
-            ", passwordHash='" + passwordHash + '\'' +
+            ", username='" + username + '\'' +
+            ", passwordHash='" + password + '\'' +
             ", dateCreated='" + dateCreated + '\'' +
             ", dateModified='" + dateModified + '\'' +
             "}";
