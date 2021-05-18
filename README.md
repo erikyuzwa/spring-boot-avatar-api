@@ -20,6 +20,11 @@ machine.
 - `cd spring-boot-avatar-api`
 - `mvnw spring-boot:run`
 
+# build & run the Docker container
+
+- `docker build -f Dockerfile -t wazoo/spring-boot-avatar-api .`
+- `docker run -p 3000:8080 wazoo/spring-boot-avatar-api`
+
 # license
 
 MIT License
