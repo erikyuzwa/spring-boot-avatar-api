@@ -32,6 +32,10 @@ public class User implements Serializable {
 
     @Getter
     @Setter
+    private String email;
+
+    @Getter
+    @Setter
     private String password;
 
     @Getter
@@ -52,6 +56,7 @@ public class User implements Serializable {
         return "User{" +
             "id=" + id +
             ", username='" + username + '\'' +
+            ", email='" + email + '\'' +
             ", passwordHash='" + password + '\'' +
             ", dateCreated='" + dateCreated + '\'' +
             ", dateModified='" + dateModified + '\'' +

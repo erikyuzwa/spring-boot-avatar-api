@@ -44,6 +44,7 @@ public class UserController {
     public User createUser(@RequestBody User newUser) {
         User model = new User();
         model.setUsername(newUser.getUsername());
+        model.setEmail(newUser.getEmail());
         model.setPassword(newUser.getPassword());
         return userRepository.save(model);
     }
@@ -68,6 +69,7 @@ public class UserController {
         model = userRepository.findById(id);
         if (model.isPresent()) {
             model.get().setUsername(newUser.getUsername());
+            model.get().setEmail(newUser.getEmail());
             model.get().setDateModified(Instant.now());
 
             return new ResponseEntity<User>(userRepository.save(model.get()), HttpStatus.OK);
