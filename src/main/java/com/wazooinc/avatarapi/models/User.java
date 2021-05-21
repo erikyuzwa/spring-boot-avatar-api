@@ -21,18 +21,22 @@ import lombok.Setter;
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
     @Setter
     private Long id;
 
     @Getter
     @Setter
-    private String userName;
+    private String username;
 
     @Getter
     @Setter
-    private String passwordHash;
+    private String email;
+
+    @Getter
+    @Setter
+    private String password;
 
     @Getter
     @Setter
@@ -51,8 +55,9 @@ public class User implements Serializable {
     public String toString() {
         return "User{" +
             "id=" + id +
-            ", userName='" + userName + '\'' +
-            ", passwordHash='" + passwordHash + '\'' +
+            ", username='" + username + '\'' +
+            ", email='" + email + '\'' +
+            ", passwordHash='" + password + '\'' +
             ", dateCreated='" + dateCreated + '\'' +
             ", dateModified='" + dateModified + '\'' +
             "}";

@@ -43,8 +43,9 @@ public class UserController {
     @PostMapping("/users")
     public User createUser(@RequestBody User newUser) {
         User model = new User();
-        model.setUserName(newUser.getUserName());
-        model.setPasswordHash(newUser.getPasswordHash());
+        model.setUsername(newUser.getUsername());
+        model.setEmail(newUser.getEmail());
+        model.setPassword(newUser.getPassword());
         return userRepository.save(model);
     }
 
@@ -67,7 +68,8 @@ public class UserController {
         Optional<User> model = null;
         model = userRepository.findById(id);
         if (model.isPresent()) {
-            model.get().setUserName(newUser.getUserName());
+            model.get().setUsername(newUser.getUsername());
+            model.get().setEmail(newUser.getEmail());
             model.get().setDateModified(Instant.now());
 
             return new ResponseEntity<User>(userRepository.save(model.get()), HttpStatus.OK);
@@ -82,5 +84,4 @@ public class UserController {
         userRepository.deleteById(id);
     }
 
-    
 }
