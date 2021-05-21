@@ -2,7 +2,7 @@ package com.wazooinc.avatarapi.models;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +22,7 @@ import lombok.Setter;
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
     @Setter
     private Long id;
@@ -29,6 +30,10 @@ public class User implements Serializable {
     @Getter
     @Setter
     private String username;
+
+    @Getter
+    @Setter
+    private String email;
 
     @Getter
     @Setter
@@ -49,7 +54,8 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @Getter
     @Setter
-    private Set<Avatar> avatars;
+    @JsonIgnore
+    private List<Avatar> avatars;
 
     @Override
     public String toString() {
@@ -58,6 +64,7 @@ public class User implements Serializable {
             ", username='" + username + '\'' +
             ", password='" + password + '\'' +
             ", role='" + role + '\'' +
+            ", email='" + email + '\'' +
             ", dateCreated='" + dateCreated + '\'' +
             ", dateModified='" + dateModified + '\'' +
             "}";

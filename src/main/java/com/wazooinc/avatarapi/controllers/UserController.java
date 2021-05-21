@@ -45,6 +45,7 @@ public class UserController {
     User model = new User();
     model.setUsername(newUser.getUsername());
     model.setPassword(passwordEncoder.encode(newUser.getPassword()));
+    model.setEmail(newUser.getEmail());
     model.setRole(newUser.getRole());
     return userRepository.save(model);
   }
@@ -69,6 +70,7 @@ public class UserController {
     model = userRepository.findById(id);
     if (model.isPresent()) {
       model.get().setUsername(newUser.getUsername());
+      model.get().setEmail(newUser.getEmail());
       model.get().setRole(newUser.getRole());
       model.get().setDateModified(Instant.now());
 
