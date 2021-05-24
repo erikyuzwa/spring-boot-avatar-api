@@ -23,60 +23,53 @@ import lombok.Setter;
 @Table(name = "avatars")
 public class Avatar implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
-    @Setter
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @Getter
+  @Setter
+  private Long id;
 
-    @Getter
-    @Setter
-    private String name;
+  @Getter
+  @Setter
+  private String name;
 
-    @Getter
-    @Setter
-    @Enumerated(EnumType.STRING)
-    private ClassType classType;
+  @Getter
+  @Setter
+  @Enumerated(EnumType.STRING)
+  private ClassType classType;
 
-    @Getter
-    @Setter
-    @Enumerated(EnumType.STRING)
-    private RaceType raceType;
+  @Getter
+  @Setter
+  @Enumerated(EnumType.STRING)
+  private RaceType raceType;
 
-    @Getter
-    @Setter
-    private int healthPoints;
+  @Getter
+  @Setter
+  private int healthPoints;
 
-    @Getter
-    @Setter
-    private int manaPoints;
+  @Getter
+  @Setter
+  private int manaPoints;
 
-    @Getter
-    @Setter
-    private Instant dateCreated = Instant.now();
+  @Getter
+  @Setter
+  private Instant dateCreated = Instant.now();
 
-    @Getter
-    @Setter
-    private Instant dateModified = Instant.now();
+  @Getter
+  @Setter
+  private Instant dateModified = Instant.now();
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    @Setter
-    @JsonIgnore
-    private User user;
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "user_id", nullable = false)
+  @Setter
+  @JsonIgnore
+  private User user;
 
-    @Override
-    public String toString() {
-        return "Avatar{" +
-            "id=" + id +
-            ", name='" + name + '\'' +
-            ", classType='" + classType + '\'' +
-            ", raceType='" + raceType + '\'' +
-            ", healthPoints=" + healthPoints +
-            ", manaPoints=" + manaPoints +
-            ", dateCreated='" + dateCreated + '\'' +
-            ", dateModified='" + dateModified + '\'' +
-            "}";
-    }
-    
+  @Override
+  public String toString() {
+    return "Avatar{" + "id=" + id + ", name='" + name + '\'' + ", classType='" + classType + '\'' + ", raceType='"
+        + raceType + '\'' + ", healthPoints=" + healthPoints + ", manaPoints=" + manaPoints + ", dateCreated='"
+        + dateCreated + '\'' + ", dateModified='" + dateModified + '\'' + "}";
+  }
+
 }
